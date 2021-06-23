@@ -4,17 +4,11 @@ import paho.mqtt.client as mqttClient
 import logging
 import platform
 
-#broker_address = "192.168.1.35" #ma machine
-#broker_address = "172.25.0.191" #ma machine sur tplink
-broker_address = "172.25.0.185" #pc dell etage
+broker_address = "172.25.0.185"
 port = 1883
 PACKAGE_NAME="xaal.mqtt"
 logger = logging.getLogger(PACKAGE_NAME)
 
-FLECHE_DROITE = "droit_sdb"
-FLECHE_GAUCHE = "gauche_wc"
-PLUS = "plus"
-MOINS = "moins"
 
 def main():
 	cfg = tools.load_cfg(PACKAGE_NAME)
@@ -75,8 +69,8 @@ def main():
                 print("%s eteint" % dev)
                 client.disconnect()
 	
-	dev.add_method('gauche',gauche_wc)
-	dev.add_method('droite',droit_sdb)
+	dev.add_method('gauche',gauche)
+	dev.add_method('droite',droite)
 	dev.add_method('plus',plus)
 	dev.add_method('moins',moins)
 	dev.add_method('droit',droit)
