@@ -11,6 +11,11 @@ port = 1883
 PACKAGE_NAME="xaal.mqtt"
 logger = logging.getLogger(PACKAGE_NAME)
 
+FLECHE_DROITE = "droit_sdb"
+FLECHE_GAUCHE = "gauche_wc"
+PLUS = "plus"
+MOINS = "moins"
+
 def main():
 	cfg = tools.load_cfg(PACKAGE_NAME)
 	if cfg == None:
@@ -29,48 +34,49 @@ def main():
 	dev.dump()
 	
 	# methods 
-	def gauche_wc():
-		client = mqttClient.Client("Python")
-		client.connect(broker_address, port=port)
-		client.publish("/topic/qos0", "gauche")
-		arrow.value = "gauche"
-		print("%s gauche" % dev)
-		client.disconnect()
+	def gauche(_topic):
+                client = mqttClient.Client("Python")
+                client.connect(broker_address, port=port)
+                client.publish(str(_topic), "gauche")
+                arrow.value = "gauche"
+                print("%s gauche" % dev)
+                client.disconnect()
 		
-	def droit_sdb() :
-		client = mqttClient.Client("Python")
-		client.connect(broker_address, port=port)
-		client.publish("/topic/qos0", "droite")
-		arrow.value = "droite"
-		print("%s droite" % dev)
-		client.disconnect()
+	def droite(_topic) :
+                client = mqttClient.Client("Python")
+                client.connect(broker_address, port=port)
+                client.publish(str(_topic), "droite")
+                arrow.value = "droite"
+                print("%s droite" % dev)
+                client.disconnect()
 		
-	def plus() :
-		client = mqttClient.Client("Python")
-		client.connect(broker_address, port=port)
-		client.publish("/topic/qos0", "plus")
-		arrow.value = "plus"
-		print("%s plus" % dev)
-		client.disconnect()
-		
-	def moins() :
-		client = mqttClient.Client("Python")
-		client.connect(broker_address, port=port)
-		client.publish("/topic/qos0", "moins")
-		arrow.value = "moins"
-		print("%s moins" % dev)
-		client.disconnect()
-		
-	def droit() :
-		client = mqttClient.Client("Python")
-		client.connect(broker_address, port=port)
-		client.publish("/topic/qos0", "droit")
-		arrow.value = "eteint"
-		print("%s eteint" % dev)
-		client.disconnect()
+	def plus(_topic) :
+                print("topic : ",_topic)
+                client = mqttClient.Client("Python")
+                client.connect(broker_address, port=port)
+                client.publish(str(_topic), "plus")
+                arrow.value = "plus"
+                print("%s plus" % dev)
+                client.disconnect()
+                
+	def moins(_topic) :
+                client = mqttClient.Client("Python")
+                client.connect(broker_address, port=port)
+                client.publish(str(_topic), "moins")
+                arrow.value = "moins"
+                print("%s moins" % dev)
+                client.disconnect()
+                
+	def droit(_topic) :     
+                client = mqttClient.Client("Python")
+                client.connect(broker_address, port=port)
+                client.publish(str(_topic), "droit")
+                arrow.value = "eteint"
+                print("%s eteint" % dev)
+                client.disconnect()
 	
-	dev.add_method('gauche_wc',gauche_wc)
-	dev.add_method('droit_sdb',droit_sdb)
+	dev.add_method('gauche',gauche_wc)
+	dev.add_method('droite',droit_sdb)
 	dev.add_method('plus',plus)
 	dev.add_method('moins',moins)
 	dev.add_method('droit',droit)
