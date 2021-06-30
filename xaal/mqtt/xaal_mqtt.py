@@ -10,7 +10,7 @@ PACKAGE_NAME="xaal.mqtt"
 logger = logging.getLogger(PACKAGE_NAME)
 
 
-def main():
+def main(eng):
 	cfg = tools.load_cfg(PACKAGE_NAME)
 	if cfg == None:
 		print(cfg)
@@ -75,11 +75,6 @@ def main():
 	dev.add_method('moins',moins)
 	dev.add_method('droit',droit)
 	
-	eng = Engine()
 	eng.add_device(dev)
 	eng.run()
-
-
-if __name__ =='__main__':
-        main()
 
